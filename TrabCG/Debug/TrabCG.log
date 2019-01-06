@@ -1,0 +1,130 @@
+﻿  main.cpp
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(34): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(35): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(41): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(68): warning C4305: 'inicializando': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(315): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(327): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(339): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(351): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(361): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(362): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(363): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(380): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(381): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(387): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(388): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(391): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(393): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(397): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(403): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(404): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(407): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(409): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(413): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(422): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(423): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(426): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(428): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(429): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(432): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(434): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(435): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(438): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(440): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(441): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(444): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(446): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(447): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(450): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(452): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(453): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(462): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(463): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(467): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(470): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(476): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(481): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(483): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(487): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(488): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(493): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(494): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(504): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(505): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(509): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(512): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(518): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(523): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(525): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(529): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(530): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(535): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(536): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(545): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(549): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(550): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(552): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(554): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(556): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(559): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(561): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(563): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(569): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(570): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(572): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(574): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(576): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(579): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(581): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(583): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(589): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(590): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(592): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(594): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(596): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(599): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(601): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(603): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(609): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(610): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(612): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(614): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(616): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(619): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(621): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(623): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(630): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(634): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(635): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(637): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(639): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(641): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(644): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(646): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(648): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(654): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(655): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(657): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(659): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(661): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(664): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(666): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(668): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(674): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(675): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(677): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(679): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(681): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(684): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(686): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(688): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(694): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(695): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(697): warning C4305: 'argumento': truncamento de 'double' para 'GLfloat'
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(699): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(701): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(704): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(706): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+c:\users\felipe\desktop\uerj\cg\trabalho final\trabcg\trabcg\main.cpp(708): warning C4244: 'argumento': conversão de 'double' para 'GLint', possível perda de dados
+  TrabCG.vcxproj -> C:\Users\Felipe\Desktop\UERJ\CG\Trabalho Final\TrabCG\Debug\TrabCG.exe
