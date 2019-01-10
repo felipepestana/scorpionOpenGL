@@ -46,8 +46,8 @@ float eyeDistance = 30.0;
 float eyeX;
 float eyeY;
 float eyeZ;
-float viewAngleX = 0.0;
-float viewAngleZ = 15.0;
+float viewAngleX = 90.0;
+float viewAngleZ = 90.0;
 
 float angleArm = 90.0;
 float angleForearm = 90.0;
@@ -144,19 +144,21 @@ void handleKeypress(unsigned char key, int x, int y) {
 	case 27: //Escape key
 		exit(0);
 	case 'w': //Increase view angle z axis
-		if (viewAngleZ < 180) viewAngleZ += 3;
+		if (viewAngleZ < 90) viewAngleZ += 3;
 		glutPostRedisplay();
 		break;
-	case 'z': //Decrease view angle z axis
+	case 's': //Decrease view angle z axis
 		if (viewAngleZ > 0) viewAngleZ -= 3;
 		glutPostRedisplay();
 		break;
-	case 'a': //Decrease view angle x axis
+	case 'q': //Decrease view angle x axis
 		if (viewAngleX > 0) viewAngleX -= 3;
+		else viewAngleX = (viewAngleX -= 3) + 360;
 		glutPostRedisplay();
 		break;
-	case 's': //Increase view angle x axis
-		if (viewAngleX < 180) viewAngleX += 3;
+	case 'e': //Increase view angle x axis
+		if (viewAngleX < 360) viewAngleX += 3;
+		else viewAngleX = (viewAngleX += 3) - 360;
 		glutPostRedisplay();
 		break;
 	case 't': //Change metal texture
@@ -374,6 +376,9 @@ void drawScene(void) {
 	glColor3f(0.4f, 0.2f, 0.0f);
 	//glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
 	//glMateriali(GL_FRONT, GL_SHININESS, especMaterialNoTexture);
+
+	glRotatef(90, 0, 0, 1);
+	glRotatef(270, 0, 1, 0);
 
 	//Main body
 	glPushMatrix();
