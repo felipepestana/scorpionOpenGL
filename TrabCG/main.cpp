@@ -1,6 +1,6 @@
-﻿#include <windows.h>
+﻿//#include <windows.h>
 #include <iostream>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <GL/glut.h>
 #include "RgbImage.h"
 
@@ -8,40 +8,21 @@
 
 using namespace std;
 
-char* filenameTexMetal1 = "./metalTexture1.bmp";
-char* filenameTexMetal2 = "./metalTexture2.bmp";
-char* filenameTexMetal3 = "./metalTexture3.bmp";
-char* filenameTexMetal4 = "./metalTexture4.bmp";
-char* filenameTexTop = "./woodTextureTop.bmp";
-char* filenameTexFront = "./woodTextureFront.bmp";
-char* filenameTexSide = "./woodTextureSide.bmp";
+//Texture variables
+char* filenameTexDark = "./darkTexture.bmp";
+char* filenameTexLight = "./lightTexture.bmp";
+char* filenameTexRed = "./redTexture.bmp";
 
-GLuint _textureIdMetal1;
-GLuint _textureIdMetal2;
-GLuint _textureIdMetal3;
-GLuint _textureIdMetal4;
-GLuint _textureIdSphere;
-GLuint _textureIdCylinder;
-GLuint _textureIdPlatformTop;
-GLuint _textureIdPlatformFront;
-GLuint _textureIdPlatformSide;
+GLuint _textureIdDark;
+GLuint _textureIdLight;
+GLuint _textureIdRed;
 
-bool textureOn = true;
+bool textureOn = false;
 
 GLUquadric *quadSphere;
 GLUquadric *quadCylinder;
 
-float diameterCylinder = 0.3;
-float diameterSphere = 0.4;
-float sizeArm = 4.5;
-float sizeForearm = 3.0;
-float sizeHand = 2.0;
-float sizeClampPart = 1.0;
-float lenghtPlatform = 10.0;
-float heightPlatform = 0.4;
-float diameterBase = 2.0;
-float heightBase = 0.5;
-
+//Camera variables
 float eyeDistance = 30.0;
 float eyeX;
 float eyeY;
@@ -49,32 +30,23 @@ float eyeZ;
 float viewAngleX = 90.0;
 float viewAngleZ = 90.0;
 
-float angleArm = 90.0;
-float angleForearm = 90.0;
-float angleHand = 0.0;
-float angleClampZ = 0.0;
-float angleClampY = 0.0;
+//Moviment variables
+float leftLegs[4] = { 0, 0, 0, 0 };
+float rightLegs[4] = { 0, 0, 0, 0 };
+float leftArm = 0.0;
+float rightArm = 0.0;
+float leftClaw = 30.0;
+float rightClaw = 30.0;
+float angleTail = 30.0;
 
-float RightLegs[4] = { 0, 0, 0, 0 };
-float LeftLegs[4] = { 0, 0, 0, 0 };
-float RightArm = 0.0;
-float LeftArm = 0.0;
-float RightClaw = 0.0;
-float LeftClaw = 0.0;
-float Tail = 30.0;
-
-
-GLfloat lightposition[4] = { 30.0f, 0.0f, 0.0f, 0.0 };
+//Ilumination variables
+GLfloat lightposition[4] = { 50.0f, 0.0f, 0.0f, 0.0 };
 GLfloat luzAmbiente[4] = { 0.19, 0.19, 0.19, 0.0 };
 GLfloat luzDifusa[4] = { 0.5, 0.5, 0.5, 1.0 };
 GLfloat luzEspecular[4] = { 0.5, 0.5, 0.5, 1.0 };
-GLfloat especularidade[4] = { 1.0, 1.0, 1.0, 1.0 };
-GLfloat semEspecularidade[4] = { 0.0, 0.0, 0.0, 1.0 };
-GLfloat especMaterialTexture = 50;
-GLfloat especMaterialNoTexture = 60;
 
 //defines light source (LIGHT0)
-void initLighting(void)
+void initialize(void)
 {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -91,7 +63,6 @@ void initLighting(void)
 
 	// Ativa o uso da luz ambiente 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
-	//glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
 
 	// Define os parâmetros da luz de número 0
 	glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
@@ -128,119 +99,162 @@ void initRendering(void) {
 
 	quadSphere = gluNewQuadric();
 	quadCylinder = gluNewQuadric();
-	_textureIdMetal1 = loadTexture(filenameTexMetal1);
-	_textureIdMetal2 = loadTexture(filenameTexMetal2);
-	_textureIdMetal3 = loadTexture(filenameTexMetal3);
-	_textureIdMetal4 = loadTexture(filenameTexMetal4);
-	_textureIdCylinder = _textureIdMetal1;
-	_textureIdSphere = _textureIdMetal1;
-	_textureIdPlatformTop = loadTexture(filenameTexTop);
-	_textureIdPlatformFront = loadTexture(filenameTexFront);
-	_textureIdPlatformSide = loadTexture(filenameTexSide);
+	_textureIdDark = loadTexture(filenameTexDark);
+	_textureIdLight = loadTexture(filenameTexLight);
+	_textureIdRed = loadTexture(filenameTexRed);
 }
 
-void handleKeypress(unsigned char key, int x, int y) {
-	switch (key) {
-	case 27: //Escape key
-		exit(0);
-	case 'w': //Increase view angle z axis
-		if (viewAngleZ < 90) viewAngleZ += 3;
-		glutPostRedisplay();
-		break;
-	case 's': //Decrease view angle z axis
-		if (viewAngleZ > 0) viewAngleZ -= 3;
-		glutPostRedisplay();
-		break;
-	case 'q': //Decrease view angle x axis
-		if (viewAngleX > 0) viewAngleX -= 3;
-		else viewAngleX = (viewAngleX -= 3) + 360;
-		glutPostRedisplay();
-		break;
-	case 'e': //Increase view angle x axis
-		if (viewAngleX < 360) viewAngleX += 3;
-		else viewAngleX = (viewAngleX += 3) - 360;
-		glutPostRedisplay();
-		break;
-	case 't': //Change metal texture
-		textureOn = true;
-		if (_textureIdSphere == _textureIdMetal1) {
-			_textureIdSphere = _textureIdMetal2;
-			_textureIdCylinder = _textureIdMetal2;
-		}
-		else if (_textureIdSphere == _textureIdMetal2) {
-			_textureIdSphere = _textureIdMetal3;
-			_textureIdCylinder = _textureIdMetal3;
-		}
-		else if (_textureIdSphere == _textureIdMetal3) {
-			_textureIdSphere = _textureIdMetal4;
-			_textureIdCylinder = _textureIdMetal4;
-		}
-		else if (_textureIdSphere == _textureIdMetal4) {
-			_textureIdSphere = _textureIdMetal1;
-			_textureIdCylinder = _textureIdMetal1;
-		}
-		glutPostRedisplay();
-		break;
-	case 'n': //no texture
-		textureOn = false;
-		glutPostRedisplay();
-		break;
-	case '1': //Increase arm angle
-		angleArm += 3;
-		if (angleArm >= 360) angleArm = 0;
-		glutPostRedisplay();
-		break;
-	case '2': //Decrease arm angle
-		angleArm -= 3;
-		if (angleArm <= 0) angleArm = 360;
-		glutPostRedisplay();
-		break;
-	case '3': //Increase forearm angle
-		if (angleForearm < 90) angleForearm += 3;
-		glutPostRedisplay();
-		break;
-	case '4': //Decrease forearm angle
-		if (angleForearm > -90) angleForearm -= 3;
-		glutPostRedisplay();
-		break;
-	case '5': //Increase hand angle
-		if (angleHand < 90) angleHand += 3;
-		glutPostRedisplay();
-		break;
-	case '6': //Decrease hand angle
-		if (angleHand > -90) angleHand -= 3;
-		glutPostRedisplay();
-		break;
-	case '7': //Increase clamp angle y axis
-		if (angleClampY < 60) angleClampY += 3;
-		glutPostRedisplay();
-		break;
-	case '8': //Decrease clamp angle y axis
-		if (angleClampY > 0) angleClampY -= 3;
-		glutPostRedisplay();
-		break;
-	case '9': //Increase clamp angle z axis
-		angleClampZ += 3;
-		if (angleClampZ >= 360) angleClampZ = 0;
-		glutPostRedisplay();
-		break;
-	case '0': //Decrease clamp angle z axis
-		angleClampZ -= 3;
-		if (angleClampZ <= 0) angleClampZ = 360;
-		glutPostRedisplay();
-		break;
+//Function to handle special keys 
+void specialKeyboardHandler(int key, int x, int y) {
+	switch (key)	
+	{
+		case GLUT_KEY_UP: //Increase view angle z axis
+			if (viewAngleZ < 90) viewAngleZ += 3;
+			glutPostRedisplay();
+			break;
+		case GLUT_KEY_DOWN: //Decrease view angle z axis
+			if (viewAngleZ > -90) viewAngleZ -= 3;
+			glutPostRedisplay();
+			break;
+		case GLUT_KEY_LEFT: //Decrease view angle x axis
+			if (viewAngleX > 0) viewAngleX -= 3;
+			else viewAngleX = (viewAngleX -= 3) + 360;
+			glutPostRedisplay();
+			break;
+		case GLUT_KEY_RIGHT: //Increase view angle x axis
+			if (viewAngleX < 360) viewAngleX += 3;
+			else viewAngleX = (viewAngleX += 3) - 360;
+			glutPostRedisplay();
+			break;
+		
 	}
-	//cout << "Arm (" << angleArm << "); Forearm (" << angleForearm << "); Hand (" << angleHand << "); ";
-	//cout << "Clamp Y (" << angleClampY << "); Clamp Z (" << angleClampZ << ") \n";
-	//cout << "Eye X (" << eyeX << "); Eye Y (" << eyeY << "); Eye Z (" << eyeZ << ") \n";
+}			
+	
+//Function to handle "normal" keys 
+void keyboardHandler(unsigned char key, int x, int y) {
+	switch (key) {
+		case 27: //Escape key
+			exit(0);
+		case '1':
+			if (leftArm < 14) leftArm += 2;		
+			glutPostRedisplay();
+			break;
+		case '2':
+			if (leftArm > -8) leftArm -= 2;
+			glutPostRedisplay();
+			break;
+		case '3':
+			if (rightArm > -14) rightArm -= 2;
+			glutPostRedisplay();
+			break;
+		case '4':
+			if (rightArm < 8) rightArm += 2;
+			glutPostRedisplay();
+			break;
+		case '5':
+			if (leftClaw < 40) leftClaw += 2;
+			glutPostRedisplay();
+			break;
+		case '6':
+			if (leftClaw > 8) leftClaw -= 2;
+			glutPostRedisplay();
+			break;
+		case '7':
+			if (rightClaw < 40) rightClaw += 2;
+			glutPostRedisplay();
+			break;
+		case '8':
+			if (rightClaw > 8) rightClaw -= 2;
+			glutPostRedisplay();
+			break;
+		case '9':		
+			if (angleTail < 40) angleTail += 2;
+			glutPostRedisplay();
+			break;
+		case '0':
+			if (angleTail > 20) angleTail -= 2;
+			glutPostRedisplay();
+			break;
+		case 'q':
+			if (leftLegs[0] < 10) leftLegs[0] += 1;
+			glutPostRedisplay();
+			break;
+		case 'w':
+			if (leftLegs[0] > -5) leftLegs[0] -= 1;
+			glutPostRedisplay();
+			break;
+		case 'e':
+			if (leftLegs[1] < 10) leftLegs[1] += 1;
+			glutPostRedisplay();
+			break;
+		case 'r':
+			if (leftLegs[1] > -5) leftLegs[1] -= 1;
+			glutPostRedisplay();
+			break;
+		case 't':
+			if (leftLegs[2] < 10) leftLegs[2] += 1;
+			glutPostRedisplay();
+			break;
+		case 'y':
+			if (leftLegs[2] > -5) leftLegs[2] -= 1;
+			glutPostRedisplay();
+			break;
+		case 'u':
+			if (leftLegs[3] < 10) leftLegs[3] += 1;
+			glutPostRedisplay();
+			break;
+		case 'i':
+			if (leftLegs[3] > -5) leftLegs[3] -= 1;
+			glutPostRedisplay();
+			break;
+		case 'a':
+			if (rightLegs[0] < 10) rightLegs[0] += 1;
+			glutPostRedisplay();
+			break;
+		case 's':
+			if (rightLegs[0] > -5) rightLegs[0] -= 1;
+			glutPostRedisplay();
+			break;
+		case 'd':
+			if (rightLegs[1] < 10) rightLegs[1] += 1;
+			glutPostRedisplay();
+			break;
+		case 'f':
+			if (rightLegs[1] > -5) rightLegs[1] -= 1;
+			glutPostRedisplay();
+			break;
+		case 'g':
+			if (rightLegs[2] < 10) rightLegs[2] += 1;
+			glutPostRedisplay();
+			break;
+		case 'h':
+			if (rightLegs[2] > -5) rightLegs[2] -= 1;
+			glutPostRedisplay();
+			break;
+		case 'j':
+			if (rightLegs[3] < 10) rightLegs[3] += 1;
+			glutPostRedisplay();
+			break;
+		case 'k':
+			if (rightLegs[3] > -5) rightLegs[3] -= 1;
+			glutPostRedisplay();
+			break;
+		case 'z':
+			textureOn = !textureOn;
+			glutPostRedisplay();
+			break;
+		case 32:
+			break;
+	}
+	cout << "Test " << textureOn << endl;
 }
 
 // Função callback chamada para gerenciar eventos do mouse
-void GerenciaMouse(int button, int state, int x, int y)
+void mouseHandler(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON)
 		if (state == GLUT_DOWN) {  // Zoom-out
-			if (eyeDistance < 30) eyeDistance += 1;
+			if (eyeDistance < 50) eyeDistance += 1;
 		}
 	if (button == GLUT_RIGHT_BUTTON)
 		if (state == GLUT_DOWN) {  // Zoom-out
@@ -249,479 +263,256 @@ void GerenciaMouse(int button, int state, int x, int y)
 	glutPostRedisplay();
 }
 
-void handleResize(int w, int h) {
+void resizeHandler(int w, int h) {
 	glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(60.0, (float)w / (float)h, 1.0, 50.0);
 }
 
-void drawCube(float lenghtX, float lenghtY, float height)
-{
-	glBindTexture(GL_TEXTURE_2D, _textureIdPlatformFront);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBegin(GL_QUADS);			// Face posterior
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(-lenghtX, -lenghtY, -height);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(-lenghtX, lenghtY, -height);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(lenghtX, lenghtY, -height);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(lenghtX, -lenghtY, -height);
-	glEnd();
-	glBegin(GL_QUADS);			// Face frontal
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(-lenghtX, -lenghtY, height);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(lenghtX, -lenghtY, height);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(lenghtX, lenghtY, height);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-lenghtX, lenghtY, height);
-	glEnd();
-	glBindTexture(GL_TEXTURE_2D, _textureIdPlatformSide);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBegin(GL_QUADS);			// Face lateral esquerda
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(-lenghtX, -lenghtY, -height);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(-lenghtX, -lenghtY, height);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(-lenghtX, lenghtY, height);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-lenghtX, lenghtY, -height);
-	glEnd();
-	glBegin(GL_QUADS);			// Face lateral direita
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(lenghtX, -lenghtY, -height);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(lenghtX, lenghtY, -height);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(lenghtX, lenghtY, height);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(lenghtX, -lenghtY, height);
-	glEnd();
-	glBindTexture(GL_TEXTURE_2D, _textureIdPlatformTop);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBegin(GL_QUADS);			// Face superior
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-lenghtX, lenghtY, -height);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(-lenghtX, lenghtY, height);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(lenghtX, lenghtY, height);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(lenghtX, lenghtY, -height);
-	glEnd();
-	glBegin(GL_QUADS);			// Face inferior
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(-lenghtX, -lenghtY, -height);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(lenghtX, -lenghtY, -height);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(lenghtX, -lenghtY, height);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(-lenghtX, -lenghtY, height);
-	glEnd();
+//Change the current color according to the texture to be used
+void setColorTexture(GLuint _textureId) {
+	if (_textureId == _textureIdDark)
+		glColor3f(0.6f, 0.4f, 0.0f);
+	else if (_textureId == _textureIdLight)
+		glColor3f(0.9f, 0.74f, 0.0f);
+	else
+		glColor3f(1.0f, 1.0f, 1.0f);
 }
 
-void drawCylinder(float diameter, float lenght) {
-	if (textureOn) {
-		glBindTexture(GL_TEXTURE_2D, _textureIdCylinder);
+void drawCylinder(float diameterBegin, float diameterEnd, float length, GLuint _textureId) {
+	if (textureOn && _textureId != -1) {
+		glBindTexture(GL_TEXTURE_2D, _textureId);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		gluQuadricTexture(quadCylinder, 1);
+		setColorTexture(_textureId);
 	}
 	else
 		gluQuadricTexture(quadCylinder, 0);
-	gluCylinder(quadCylinder, diameter, diameter, lenght, 40.0, lenght*30.0);
+	gluCylinder(quadCylinder, diameterBegin, diameterEnd, length, 40.0, length*30.0);
 }
 
-void drawCone(float diameter, float lenght) {
-	if (textureOn) {
-		glBindTexture(GL_TEXTURE_2D, _textureIdCylinder);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		gluQuadricTexture(quadCylinder, 1);
-	}
-	else
-		gluQuadricTexture(quadCylinder, 0);
-	gluCylinder(quadCylinder, diameter, 0, lenght, 40.0, lenght*30.0);
-}
-
-void drawDisk(float diameterInner, float diameterOuter) {
-	if (textureOn) {
-		glBindTexture(GL_TEXTURE_2D, _textureIdCylinder);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		gluQuadricTexture(quadCylinder, 1);
-	}
-	else
-		gluQuadricTexture(quadCylinder, 0);
-	gluDisk(quadCylinder, diameterInner, diameterOuter, 40.0, 30.0);
-}
-
-void drawSphere(float diameter) {
-	if (textureOn) {
-		glBindTexture(GL_TEXTURE_2D, _textureIdSphere);
+void drawSphere(float diameter, GLuint _textureId) {	
+	if (textureOn && _textureId != -1) {
+		glBindTexture(GL_TEXTURE_2D, _textureId);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		gluQuadricTexture(quadSphere, 1);
+		setColorTexture(_textureId);
 	}
 	else
-		gluQuadricTexture(quadSphere, 0);
-	gluSphere(quadSphere, diameter, 40.0, 40.0);
+	{
+		gluQuadricTexture(quadSphere, 0);		
+	}
+	
+	gluSphere(quadSphere, diameter, 40.0, 40.0);	
 }
 
-void drawScene(void) {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glEnable(GL_TEXTURE_2D);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	eyeX = eyeDistance * cos(viewAngleZ*PI / 180) * cos(viewAngleX*PI / 180);
-	eyeY = eyeDistance * cos(viewAngleZ*PI / 180) * sin(viewAngleX*PI / 180);
-	eyeZ = eyeDistance * sin(viewAngleZ*PI / 180);
-	if (viewAngleZ < 90)
-		gluLookAt(eyeX, eyeY, eyeZ, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
-	else
-		gluLookAt(eyeX, eyeY, eyeZ, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0);
-
-	glLightfv(GL_LIGHT0, GL_POSITION, lightposition);
-
-	// clears color and material parameters before begin
-	glColor3f(1.0f, 1.0f, 1.0f);
-
+void drawBody() {
 	glColor3f(0.4f, 0.2f, 0.0f);
-	//glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
-	//glMateriali(GL_FRONT, GL_SHININESS, especMaterialNoTexture);
 
-	glRotatef(90, 0, 0, 1);
-	glRotatef(270, 0, 1, 0);
-
-	//Main body
-	glPushMatrix();
+	glPushMatrix();	
 	glScalef(0.6, 0.8, 2);
-	gluSphere(quadSphere, 4, 40.0, 40.0);
-	glPopMatrix();
-	
-	//left eye
-	glPushMatrix();
-	glColor3f(0.0, 0.0, 0.0);
-	glTranslatef(2, -1, -4.2);
-	gluSphere(quadSphere, 0.25, 10.0, 10.0);
-
-	//left teeth
-	glColor3f(0.8, 0.45, 0.1);
-	glTranslatef(-1.5, 0, -3);
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);
-
-	glTranslatef(0.0, 0.0, -0.5);
-	glRotatef(200, 1, 0, 0);
-	gluCylinder(quadCylinder, 0.5, 0, 2, 10.0, 10.0);
+	//gluSphere(quadSphere, 4, 40.0, 40.0);
+	drawSphere(4.0, _textureIdDark);
 	glPopMatrix();
 
-	//right eye	
+	//right eye
 	glPushMatrix();
 	glColor3f(0.0, 0.0, 0.0);
-	glTranslatef(2, 1, -4.2);
+	glTranslatef(2, -1, -4.2);	
 	gluSphere(quadSphere, 0.25, 10.0, 10.0);
 
 	//right teeth
 	glColor3f(0.8, 0.45, 0.1);
 	glTranslatef(-1.5, 0, -3);
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);
+	drawSphere(0.7, _textureIdLight);
+	//gluSphere(quadSphere, 0.7, 10.0, 10.0);
+
+	glTranslatef(0.0, 0.0, -0.5);
+	glRotatef(200, 1, 0, 0);
+	drawCylinder(0.5, 0, 1.5, _textureIdLight);
+	//gluCylinder(quadCylinder, , 10.0, 10.0);
+	glPopMatrix();
+
+	//left eye	
+	glPushMatrix();
+	glColor3f(0.0, 0.0, 0.0);
+	glTranslatef(2, 1, -4.2);	
+	gluSphere(quadSphere, 0.25, 10.0, 10.0);
+
+	//left teeth
+	glColor3f(0.8, 0.45, 0.1);
+	glTranslatef(-1.5, 0, -3);
+	drawSphere(0.7, _textureIdLight);
+	//gluSphere(quadSphere, 0.7, 10.0, 10.0);
 
 	glTranslatef(0.0, 0.0, -0.5);
 	glRotatef(160, 1, 0, 0);
-	gluCylinder(quadCylinder, 0.5, 0, 2, 10.0, 10.0);
+	drawCylinder(0.5, 0, 1.5, _textureIdLight);
+	//gluCylinder(quadCylinder, 0.5, 0, 1.5, 10.0, 10.0);
 	glPopMatrix();
+}
 
-	//tail
+void drawTail()	{
+
 	glPushMatrix();
 
 	glColor3f(0.55f, 0.22f, 0.0f);
-	glTranslatef(0.0, 0.0, 8);
+	glTranslatef(0.0, 0.0, 8);	
+
+	//Draw each intermediate part of the tail
+	for (int i = 1; i <= 5; i++)
+	{
+		drawSphere(0.8, _textureIdRed);
+		//gluSphere(quadSphere, 0.8, 10.0, 10.0);
+		glTranslatef(0.0, 0.0, 0.4);
+		glRotatef(angleTail, 0, 1, 0);
+		drawCylinder(1.0, 1.0, 1.8, _textureIdRed);
+		//gluCylinder(quadCylinder, 1, 1, 1.8, 10, 10);
+		glTranslatef(0.0, 0.0, 1.6);
+	}
 
 	gluSphere(quadSphere, 0.8, 10.0, 10.0);
 	glTranslatef(0.0, 0.0, 0.4);
-	glRotatef(Tail, 0, 1, 0);
-	gluCylinder(quadCylinder, 1, 1, 1.6, 10, 10);
-	glTranslatef(0.0, 0.0, 1.4);
-
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);
-	glTranslatef(0.0, 0.0, 0.4);
-	glRotatef(Tail, 0, 1, 0);
-	gluCylinder(quadCylinder, 1, 1, 1.6, 10, 10);
-	glTranslatef(0.0, 0.0, 1.4);
-
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);
-	glTranslatef(0.0, 0.0, 0.4);
-	glRotatef(Tail, 0, 1, 0);
-	gluCylinder(quadCylinder, 1, 1, 1.6, 10, 10);
-	glTranslatef(0.0, 0.0, 1.4);
-
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);
-	glTranslatef(0.0, 0.0, 0.4);
-	glRotatef(Tail, 0, 1, 0);
-	gluCylinder(quadCylinder, 1, 1, 1.6, 10, 10);
-	glTranslatef(0.0, 0.0, 1.4);
-
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);
-	glTranslatef(0.0, 0.0, 0.4);
-	glRotatef(Tail, 0, 1, 0);
-	gluCylinder(quadCylinder, 1, 1, 1.6, 10, 10);
-	glTranslatef(0.0, 0.0, 1.4);
-
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);
-	glTranslatef(0.0, 0.0, 0.4);
-	glRotatef(Tail, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.8, 0, 2, 10, 10);
+	glRotatef(angleTail, 0, 1, 0);
+	drawCylinder(0.8, 0.0, 3.0, _textureIdRed);
+	//gluCylinder(quadCylinder, 0.8, 0, 3, 10, 10);
 
 	glPopMatrix();
+}
 
-	//right arm
+//First parameter is used to invert values to draw for left and right
+void drawArm(int sideChooser)
+{
+	float angleArm;
+	float angleClaw;
+	if (sideChooser == -1) angleArm = rightArm; 
+	else angleArm = leftArm; 
+
+	//arm
 	glPushMatrix();
 	glColor3f(0.75f, 0.29f, 0.0f);
-	glTranslatef(0.4, -2.6, -5.3);
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);	
+	glTranslatef(0.4, sideChooser * 2.6, -5.3);
+	drawSphere(0.8, _textureIdRed);
+	//gluSphere(quadSphere, 0.8, 10.0, 10.0);
 
-	glRotatef(115, 1, 0, 0);
+	glRotatef(245 * sideChooser + angleArm * 2, 1, 0, 0);
 	glRotatef(20, 0, 1, 0);
 	glTranslatef(0, 0, 0.3);
 	gluCylinder(quadCylinder, 0.8, 0.6, 2.8, 10, 10);
 	glTranslatef(0.0, 0.0, 3.0);
-	gluSphere(quadSphere, 0.9, 10.0, 10.0);
+	drawSphere(0.9, _textureIdRed);
+	//gluSphere(quadSphere, 0.9, 10.0, 10.0);
 
 	glRotatef(-20, 0, 1, 0);
-	glRotatef(45, 1, 0, 0);
-	gluCylinder(quadCylinder, 0.8, 0.6, 3.3, 10, 10);
-	glTranslatef(0.0, 0.0, 4);
-	gluSphere(quadSphere, 0.9, 10.0, 10.0);
-	
-	//right claw
-	glPushMatrix();
-	glRotatef(45, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.8);
-	glScalef(1, 1, 1.5);
-	gluSphere(quadSphere, 1, 10.0, 10.0);
-	
-	glPushMatrix();
-	glRotatef(30, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.8);
-	gluCylinder(quadCylinder, 0.5, 0, 2, 10.0, 10.0);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(-30, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.8);
-	gluCylinder(quadCylinder, 0.5, 0, 2, 10.0, 10.0);
-	glPopMatrix();
-
-	glPopMatrix();	
-
-	glPopMatrix();
-
-	//left arm
-	glPushMatrix();
-	glColor3f(0.75f, 0.29f, 0.0f);
-	glTranslatef(0.4, 2.6, -5.3);
-	gluSphere(quadSphere, 0.8, 10.0, 10.0);
-
-	glRotatef(245, 1, 0, 0);
-	glRotatef(20, 0, 1, 0);
-	glTranslatef(0, 0, 0.3);
-	gluCylinder(quadCylinder, 0.8, 0.6, 2.8, 10, 10);
-	glTranslatef(0.0, 0.0, 3.0);
-	gluSphere(quadSphere, 0.9, 10.0, 10.0);
-
-	glRotatef(-20, 0, 1, 0);
-	glRotatef(315, 1, 0, 0);
-	gluCylinder(quadCylinder, 0.8, 0.6, 3.3, 10, 10);
+	glRotatef(315 * sideChooser + angleArm, 1, 0, 0);
+	drawCylinder(0.8, 0.6, 3.3, _textureIdRed);
+	//gluCylinder(quadCylinder, 0.8, 0.6, 3.3, 10, 10);
 	glTranslatef(0.0, 0.0, 4);
 	gluSphere(quadSphere, 0.9, 10.0, 10.0);
 
-	//left claw
+	if (sideChooser == -1) angleClaw = rightClaw;
+	else angleClaw = leftClaw;
+
+	//claw
 	glPushMatrix();
-	glRotatef(315, 1, 0, 0);
+	glRotatef(sideChooser * 315, 1, 0, 0);
 	glTranslatef(0, 0.0, 0.8);
 	glScalef(1, 1, 1.5);
-	gluSphere(quadSphere, 1, 10.0, 10.0);
+	drawSphere(1.0, _textureIdRed);
+	//gluSphere(quadSphere, 1, 10.0, 10.0);
 
 	glPushMatrix();
-	glRotatef(30, 1, 0, 0);
+	glRotatef(angleClaw, 1, 0, 0);
 	glTranslatef(0, 0.0, 0.8);
-	gluCylinder(quadCylinder, 0.5, 0, 2, 10.0, 10.0);
+	drawCylinder(0.5, 0.0, 2.0, _textureIdRed);
+	//gluCylinder(quadCylinder, 0.5, 0, 2, 10.0, 10.0);
 	glPopMatrix();
 
 	glPushMatrix();
-	glRotatef(-30, 1, 0, 0);
+	glRotatef(angleClaw * -1, 1, 0, 0);
 	glTranslatef(0, 0.0, 0.8);
-	gluCylinder(quadCylinder, 0.5, 0, 2, 10.0, 10.0);
+	drawCylinder(0.5, 0.0, 2.0, _textureIdRed);
+	//gluCylinder(quadCylinder, 0.5, 0, 2, 10.0, 10.0);
 	glPopMatrix();
 
 	glPopMatrix();
 
 	glPopMatrix();
+}
 
-	//right legs
+void drawLeg(int sideChooser, float angleLeg, float y, float z)
+{	
+	glPushMatrix();
+	glColor3f(0.8, 0.45, 0.1);	
 
-	glColor3f(0.8, 0.45, 0.1);
+	//First segment
+	glTranslatef(0, y, z);
+	drawSphere(0.5, _textureIdLight);
+	//gluSphere(quadSphere, 0.5, 10.0, 10.0);
+	glRotatef(270 * sideChooser, 1, 0, 0);
+	glTranslatef(0, 0.0, 0.4);
+	glRotatef(45 - angleLeg , 0, 1, 0);
+	drawCylinder(0.5, 0.5, 3, _textureIdLight);
+	//gluCylinder(quadCylinder, 0.5, 0.5, 3, 10.0, 10.0);
 
-	glPushMatrix();	
+	//Second segment
+	glTranslatef(0, 0, 3);
+	drawSphere(0.5, _textureIdLight);
+	//gluSphere(quadSphere, 0.5, 10.0, 10.0);
+	glRotatef(270 + angleLeg * 4, 0, 1, 0);
+	glTranslatef(0, 0.0, 0);
+	drawCylinder(0.5, 0.5, 2, _textureIdLight);
+	//gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
+
+	//Third segment
+	glTranslatef(0, 0, 2);
+	gluSphere(quadSphere, 0.5, 10.0, 10.0);
+	glRotatef(310 + angleLeg *3, 0, 1, 0);
+	drawCylinder(0.5, 0.3, 2, _textureIdLight);
+
+	//gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
+
+	glPopMatrix();
+}
+
+void drawScene(void) {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	
-	glTranslatef(0, -2.6, 4.5);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(90, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.4);
-	glRotatef(45, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 0, 1, 0);
-	glTranslatef(0, 0.0, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(310, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
+	if (textureOn)
+		glEnable(GL_TEXTURE_2D);
+	else
+		glDisable(GL_TEXTURE_2D);
 
-	glPopMatrix();
-
-	glPushMatrix();
-
-	glTranslatef(0, -2.9, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(90, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.4);
-	glRotatef(45, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 0, 1, 0);
-	glTranslatef(0, 0.0, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(310, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
-
-	glPopMatrix();
-
-	glPushMatrix();
-
-	glTranslatef(0, -3.1, -0.5);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(90, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.4);
-	glRotatef(45, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 0, 1, 0);
-	glTranslatef(0, 0.0, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(310, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	
-	glPopMatrix();
+	//Calculate camera
+	eyeX = eyeDistance * cos(viewAngleZ*PI / 180) * cos(viewAngleX*PI / 180);
+	eyeY = eyeDistance * cos(viewAngleZ*PI / 180) * sin(viewAngleX*PI / 180);
+	eyeZ = eyeDistance * sin(viewAngleZ*PI / 180);
+	
+	if (viewAngleZ < 90 && viewAngleZ > -90)
+		gluLookAt(eyeX, eyeY, eyeZ, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+	else
+		gluLookAt(eyeX, eyeY, eyeZ, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0);
 
-	glPushMatrix();
-
-	glTranslatef(0, -2.9, -3);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(90, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.4);
-	glRotatef(45, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
+	//Change matrix to match camera view
+	glRotatef(90, 0, 0, 1);
 	glRotatef(270, 0, 1, 0);
-	glTranslatef(0, 0.0, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(310, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
 
-	glPopMatrix();
+	glLightfv(GL_LIGHT0, GL_POSITION, lightposition);
 
+	// clears color and material parameters before begin
+	glColor3f(1.0f, 1.0f, 1.0f);
+	
+	/*glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
+	glMateriali(GL_FRONT, GL_SHININESS, especMaterialNoTexture);
 
-	//left legs
-
-	glColor3f(0.8, 0.45, 0.1);
-
-	glPushMatrix();
-
-	glTranslatef(0, 2.6, 4.5);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.4);
-	glRotatef(45, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 0, 1, 0);
-	glTranslatef(0, 0.0, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(310, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
-
-	glPopMatrix();
-
-	glPushMatrix();
-
-	glTranslatef(0, 2.9, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.4);
-	glRotatef(45, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 0, 1, 0);
-	glTranslatef(0, 0.0, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(310, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
-
-	glPopMatrix();
-
-	glPushMatrix();
-
-	glTranslatef(0, 3.1, -0.5);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.4);
-	glRotatef(45, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 0, 1, 0);
-	glTranslatef(0, 0.0, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(310, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
-
-	glPopMatrix();
-
-	glPushMatrix();
-
-	glTranslatef(0, 2.9, -3);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 1, 0, 0);
-	glTranslatef(0, 0.0, 0.4);
-	glRotatef(45, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(270, 0, 1, 0);
-	glTranslatef(0, 0.0, 0);
-	gluCylinder(quadCylinder, 0.5, 0.5, 2, 10.0, 10.0);
-	glTranslatef(0, 0, 2);
-	gluSphere(quadSphere, 0.5, 10.0, 10.0);
-	glRotatef(310, 0, 1, 0);
-	gluCylinder(quadCylinder, 0.5, 0.3, 2, 10.0, 10.0);
-
-	glPopMatrix();
-
-	/*glMaterialfv(GL_FRONT, GL_SPECULAR, semEspecularidade);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, semEspecularidade);
 	glMateriali(GL_FRONT, GL_SHININESS, 0);
-
-	// draws the platform
-	//glPushMatrix();
-	//glScalef(lenghtPlatform, lenghtPlatform, heightPlatform);
-	drawCube(lenghtPlatform, lenghtPlatform, heightPlatform);
-	//glPopMatrix();
 
 	if (textureOn) {
 		glColor3f(0.9f, 0.9f, 0.9f);
@@ -732,133 +523,29 @@ void drawScene(void) {
 		glColor3f(0.8f, 0.9f, 1.0f);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
 		glMateriali(GL_FRONT, GL_SHININESS, especMaterialNoTexture);
-	}
+	}*/
+	
+	drawBody();
 
-	// move to base referential
-	glTranslatef(0.0f, 0.0f, heightPlatform);
+	drawTail();
 
-	//draws the base
-	drawCylinder(diameterBase, heightBase);
-	glTranslatef(0.0f, 0.0f, heightBase);
-	drawDisk(diameterCylinder, diameterBase);
+	//left arm and claw
+	drawArm(1);
 
-	// move to arm referential
-	glRotatef(angleArm, 0.0f, 0.0f, 1.0f);
+	//right arm and claw
+	drawArm(-1);
 
-	//draws the arm
-	drawCylinder(diameterCylinder, sizeArm);
+	//right legs
+	drawLeg(-1, rightLegs[0], -2.6, 4.5);
+	drawLeg(-1, rightLegs[1], -2.9, 2.0);
+	drawLeg(-1, rightLegs[2], -3.1, -0.5);
+	drawLeg(-1, rightLegs[3], -2.9, -3.0);
 
-	// move to forearm referential
-	glTranslatef(0.0f, 0.0f, sizeArm + diameterSphere / 5);
-	glRotatef(angleForearm, 0.0f, 1.0f, 0.0f);
-
-	//draws the forearm
-	drawSphere(diameterSphere);
-	glTranslatef(0.0f, 0.0f, diameterSphere / 5);
-	drawCylinder(diameterCylinder, sizeForearm);
-
-	//move to hand referential
-	glTranslatef(0.0f, 0.0f, sizeForearm + diameterSphere / 5);
-	glRotatef(angleHand, 0.0f, 1.0f, 0.0f);
-
-	//draws the hand
-	drawSphere(diameterSphere);
-	glTranslatef(0.0f, 0.0f, diameterSphere / 5);
-	drawCylinder(diameterCylinder, sizeHand);
-
-	// move to clamp referential
-	glTranslatef(0.0f, 0.0f, sizeHand + diameterSphere / 5);
-	glRotatef(angleClampZ, 0.0f, 0.0f, 1.0f);
-
-	//draws the clamp sphere
-	drawSphere(diameterSphere);
-	glTranslatef(0.0f, 0.0f, diameterSphere / 2);
-
-	glPushMatrix();
-
-	//draws top part of clamp
-	glRotatef(angleClampY + 60, 0.0f, 1.0f, 0.0f);
-
-	drawCylinder(diameterCylinder / 3, sizeClampPart);
-	glTranslatef(0.0f, 0.0f, sizeClampPart + diameterSphere / 15);
-	drawSphere(diameterSphere / 3);
-
-	glTranslatef(0.0f, 0.0f, diameterSphere / 15);
-	glRotatef(-60, 0.0f, 1.0f, 0.0f);
-
-	drawCylinder(diameterCylinder / 3, sizeClampPart);
-	glTranslatef(0.0f, 0.0f, sizeClampPart + diameterSphere / 15);
-	drawSphere(diameterSphere / 3);
-
-	glTranslatef(0.0f, 0.0f, diameterSphere / 15);
-	glRotatef(-60, 0.0f, 1.0f, 0.0f);
-	drawCone(diameterCylinder / 3, sizeClampPart);
-
-	glPopMatrix();
-	glPushMatrix();
-
-	//draws bottom part of clamp
-	glRotatef(-angleClampY - 60, 0.0f, 1.0f, 0.0f);
-
-	drawCylinder(diameterCylinder / 3, sizeClampPart);
-	glTranslatef(0.0f, 0.0f, sizeClampPart + diameterSphere / 15);
-	drawSphere(diameterSphere / 3);
-
-	glTranslatef(0.0f, 0.0f, diameterSphere / 15);
-	glRotatef(60, 0.0f, 1.0f, 0.0f);
-
-	drawCylinder(diameterCylinder / 3, sizeClampPart);
-	glTranslatef(0.0f, 0.0f, sizeClampPart + diameterSphere / 15);
-	drawSphere(diameterSphere / 3);
-
-	glTranslatef(0.0f, 0.0f, diameterSphere / 15);
-	glRotatef(60, 0.0f, 1.0f, 0.0f);
-	drawCone(diameterCylinder / 3, sizeClampPart);
-
-	glPopMatrix();
-
-	// rotate to draw other two parts
-	glRotatef(90, 0.0f, 0.0f, 1.0f);
-
-	glPushMatrix();
-
-	//draws top part of clamp
-	glRotatef(angleClampY + 60, 0.0f, 1.0f, 0.0f);
-
-	drawCylinder(diameterCylinder / 3, sizeClampPart);
-	glTranslatef(0.0f, 0.0f, sizeClampPart + diameterSphere / 15);
-	drawSphere(diameterSphere / 3);
-
-	glTranslatef(0.0f, 0.0f, diameterSphere / 15);
-	glRotatef(-60, 0.0f, 1.0f, 0.0f);
-
-	drawCylinder(diameterCylinder / 3, sizeClampPart);
-	glTranslatef(0.0f, 0.0f, sizeClampPart + diameterSphere / 15);
-	drawSphere(diameterSphere / 3);
-
-	glTranslatef(0.0f, 0.0f, diameterSphere / 15);
-	glRotatef(-60, 0.0f, 1.0f, 0.0f);
-	drawCone(diameterCylinder / 3, sizeClampPart);
-
-	glPopMatrix();
-
-	//draws bottom part of clamp
-	glRotatef(-angleClampY - 60, 0.0f, 1.0f, 0.0f);
-
-	drawCylinder(diameterCylinder / 3, sizeClampPart);
-	glTranslatef(0.0f, 0.0f, sizeClampPart + diameterSphere / 15);
-	drawSphere(diameterSphere / 3);
-
-	glTranslatef(0.0f, 0.0f, diameterSphere / 15);
-	glRotatef(60, 0.0f, 1.0f, 0.0f);
-
-	drawCylinder(diameterCylinder / 3, sizeClampPart);
-	glTranslatef(0.0f, 0.0f, sizeClampPart + diameterSphere / 15);
-	drawSphere(diameterSphere / 3);
-
-	glTranslatef(0.0f, 0.0f, diameterSphere / 15);
-	glRotatef(60, 0.0f, 1.0f, 0.0f);
-	drawCone(diameterCylinder / 3, sizeClampPart);*/
+	//left legs
+	drawLeg(1, leftLegs[0], 2.6, 4.5);
+	drawLeg(1, leftLegs[1], 2.9, 2.0);
+	drawLeg(1, leftLegs[2], 3.1, -0.5);
+	drawLeg(1, leftLegs[3], 2.9, -3.0);
 
 	glutSwapBuffers();
 }
@@ -869,12 +556,13 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(800, 800);
 	glutCreateWindow("Scorpion");
 
-	initLighting();
+	initialize();
 	initRendering();
 	glutDisplayFunc(drawScene);
-	glutKeyboardFunc(handleKeypress);
-	glutMouseFunc(GerenciaMouse);
-	glutReshapeFunc(handleResize);
+	glutKeyboardFunc(keyboardHandler);
+	glutSpecialFunc(specialKeyboardHandler);
+	glutMouseFunc(mouseHandler);
+	glutReshapeFunc(resizeHandler);
 
 	glutMainLoop();
 	return 0;
