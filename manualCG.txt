@@ -1,0 +1,40 @@
+﻿esc(27)- fecha app
+
+botão esq mouse - diminui zoom(afasta)
+botao dir mouse - aumenta zoom(aprox)
+seta esquerda(263) - gira a camera sentido horário no eixo x
+seta direita(262) - gira a camera sentido anti-horário no eixo x
+seta cima(265) - gira a camera para cima no eixo z
+seta baixo(264) - gira a camera para baixo no eixo z
+
+botão espaço(32)(segurar) - animação
+1- abre angulo braço esquerdo
+2- fecha angulo braço esquerdo
+3- abre angulo braço direita
+4- fecha angulo braço direita
+5- abre garra esquerda
+6- fecha garra esquerda
+7- abre  garra direita
+8- fecha garra direita
+9- aumenta angulo cauda
+0- diminui angulo cauda
+
+q-aumenta angulo perna esquerda 1(traseira)
+w-diminui angulo perna esquerda 1
+e-aumenta angulo perna esquerda 2
+r-diminui angulo perna esquerda 2
+t-aumenta angulo perna esquerda 3
+y-diminui angulo perna esquerda 3
+u-aumenta angulo perna esquerda 4
+i-diminui angulo perna esquerda 4(frontal)
+
+a-aumenta angulo perna direita 1(traseira)
+s-diminui angulo perna direita 1
+d-aumenta angulo perna direita 2
+f-diminui angulo perna direita 2
+g-aumenta angulo perna direita 3
+h-diminui angulo perna direita 3
+j-aumenta angulo perna direita 4
+k-diminui angulo perna direita 4(frontal)
+
+z-liga e desliga textura
